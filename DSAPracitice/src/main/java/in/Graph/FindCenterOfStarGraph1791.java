@@ -12,4 +12,15 @@ public class FindCenterOfStarGraph1791 {
         }
         return -1;
     }
+    public int findCenterR(int[][] edges) {
+        int[] adj = new int[edges.length+2];
+        for(int i=0;i<edges.length;i++){
+            adj[edges[i][0]]++;
+            adj[edges[i][1]]++;
+        }
+        for(int i=1;i<adj.length;i++){
+            if(adj[i]==edges.length) return i;
+        }
+        return -1;
+    }
 }
