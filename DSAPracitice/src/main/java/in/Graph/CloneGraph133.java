@@ -3,6 +3,7 @@ package in.Graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CloneGraph133 {
 // Definition for a Node.
@@ -38,5 +39,21 @@ class Node {
             newNode.neighbors.add(returnedNode);
         }
         return newNode;
+    }
+
+    Map<Node, Node> map = new HashMap<>();
+    public Node cloneGraphR(Node node) {
+        return clone(node);
+    }
+    public Node clone(Node node){
+        if(node==null) return null;
+        if(map.containsKey(node)) return map.get(node);
+        Node newNode = new Node(node.val);
+        map.put(node, newNode);
+        for(int i=0;i<node.neighbors.size();i++){
+            Node returnedNode = clone(node.neighbors.get(i));
+            newNode.neighbors.add(returnedNode);
+        }
+        return map.get(node);
     }
 }
