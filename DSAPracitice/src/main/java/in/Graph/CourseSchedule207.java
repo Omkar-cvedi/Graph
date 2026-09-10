@@ -33,4 +33,30 @@ public class CourseSchedule207 {
         pathVisiting[currentCourse] = false;
         return result;
     }
+    public boolean canFinishR(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adjList = new ArrayList<>();
+        for(int i=0;i<numCourses;i++){
+            adjList.add(new ArrayList<>());
+        }
+        for(int i=0;i<prerequisites.length;i++){
+            adjList.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+        boolean[] visited = new boolean[numCourses+1];
+        boolean[] visiting = new boolean[numCourses+1];
+        for(int i=0;i<numCourses;i++){
+            if(!finish(visited, visiting, adjList, i)) return false;
+        }
+        return true;
+    }
+    public boolean finish(boolean[] visited, boolean[] visiting, List<List<Integer>> adjList, int current){
+        if(visited[current]) return true;
+        if(visiting[current]) return false;
+        visiting[current] = true;
+        for(int i=0;i<adjList.get(current).size();i++){
+            if(!finish(visited,visiting, adjList, adjList.get(current).get(i))) return false;
+        }
+        visited[current] = true;
+        visiting[current] = false;
+        return true;
+    }
 }
